@@ -5,5 +5,8 @@ exports.getLogin = async (req, res) => {
 };
 
 exports.getDashboard = async (req, res) => {
-  res.render("./dashbaord");
+  console.log(req.user);
+  res.render("./dashbaord", {
+    name: req.user.firsName,
+  });
 };
