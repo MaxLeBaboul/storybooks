@@ -6,22 +6,28 @@ module.exports = function (passport) {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.Google_CLIENT_ID,
+        clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/auth/google/callback",
+        userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
       },
+      // async function (accessToken, refreshToken, profile, cb) {
+      //   await User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      //     return cb(err, user);
+      //   });
+      // }
       async (accessToken, refreshToken, profile, done) => {
         const newUser = {
           googleId: profile.id,
-          email: profile.emails[0].value,
-          displayName: profile.displayNme,
+
+          displayName: profile.displayName,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           image: profile.photos[0].value,
         };
 
         try {
-          let user = await User.findOne({ googleId: profileId });
+          let user = await User.findOne({ googleId: profile.id });
 
           if (user) {
             done(null, user);
@@ -36,13 +42,11 @@ module.exports = function (passport) {
     )
   );
 
-  passport.serializeUser(function (user, done) {
+  passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
-  passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-      done(err, user);
-    });
+  passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => done(err, user));
   });
 };

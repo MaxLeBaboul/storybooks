@@ -1,1 +1,3 @@
 node_modules
+/public/draft
+config/config.env

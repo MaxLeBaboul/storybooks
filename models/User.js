@@ -5,16 +5,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  email: {
-    type: String,
-    required: true,
-    max: 50,
-    unique: true,
-    match: [
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      "Please use valid email",
-    ],
-  },
+  // email: {
+  //   type: String,
+  //   required: true,
+  //   max: 50,
+  //   unique: true,
+  //   match: [
+  //     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  //     "Please use valid email",
+  //   ],
+  // },
   displayName: {
     type: String,
     required: true,
@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+
   createdAt: {
     type: Date,
     dafault: Date.now,

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { getLogin, getDashboard } = require("../controllers/index");
+
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
 // @desc Login/Landing page
 // @route GET/
